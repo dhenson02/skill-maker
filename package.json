@@ -1,0 +1,19 @@
+{
+  "name": "skill-maker",
+  "private": true,
+  "type": "module",
+  "description": "Dev tooling for the Skill Maker Chrome extension (the extension itself has no build step).",
+  "scripts": {
+    "test": "node --test 'tests/unit/*.test.mjs'",
+    "test:e2e": "node --test 'tests/e2e/*.test.mjs'",
+    "test:all": "npm test && npm run test:e2e"
+  },
+  "devDependencies": {
+    "jsdom": "^30.1.0",
+    "jszip": "^3.10.1",
+    "puppeteer": "^25.11.0"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

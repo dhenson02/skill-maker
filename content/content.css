@@ -1,0 +1,17 @@
+/* Only page-level styles live here; the overlay itself is styled inside its
+   shadow root (see STYLES in content.js). */
+
+#skill-maker-host {
+  all: initial !important;
+  display: block !important;
+  position: fixed !important;
+  inset: 0 !important;
+  z-index: 2147483647 !important;
+  pointer-events: none !important;
+}
+
+/* Elements already in the skill, shown while the side panel is open. */
+html[data-sm-active] [data-sm-captured] {
+  outline: 2px dashed rgb(34 197 94 / 0.6) !important;
+  outline-offset: 2px !important;
+}

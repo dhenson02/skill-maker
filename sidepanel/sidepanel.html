@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Skill Maker</title>
+  <link rel="stylesheet" href="sidepanel.css">
+  <script src="../shared/messages.js"></script>
+  <script src="../vendor/jszip.min.js"></script>
+  <script type="module" src="sidepanel.js"></script>
+</head>
+<body>
+  <header class="meta">
+    <label class="field">
+      <span>Skill name</span>
+      <input id="skill-name" autocomplete="off" spellcheck="false" placeholder="e.g. Stripe API">
+    </label>
+    <label class="field">
+      <span>Description <small>tells the LLM when to use this skill</small></span>
+      <textarea id="skill-desc" rows="2" placeholder="Use when integrating with…"></textarea>
+    </label>
+    <p class="stats" id="stats"></p>
+  </header>
+
+  <main id="tree" aria-label="Captured sections"></main>
+
+  <template id="empty-template">
+    <div class="empty">
+      <p><strong>Nothing captured yet.</strong></p>
+      <p>On any page, <strong>highlight text</strong>, or hold <kbd>Alt</kbd>/<kbd>⌥</kbd> and
+        <strong>click a container</strong> (<kbd>Alt</kbd>+scroll to widen it). Then use the floating
+        <em>Add to Skill</em> button.</p>
+    </div>
+  </template>
+
+  <footer class="export">
+    <fieldset class="modes">
+      <legend>Export as</legend>
+      <label><input type="radio" name="mode" value="single" checked> Single <code>SKILL.md</code></label>
+      <label><input type="radio" name="mode" value="multi"> Index + <code>sections/</code></label>
+    </fieldset>
+    <div class="checks">
+      <label><input type="checkbox" id="opt-images" checked> Download images to <code>assets/</code></label>
+      <label><input type="checkbox" id="opt-sources" checked> Include source links</label>
+    </div>
+    <div class="actions">
+      <button id="clear" class="danger ghost" type="button">Clear all</button>
+      <span class="spacer"></span>
+      <button id="preview" type="button">Preview</button>
+      <button id="export" class="primary" type="button">Export .zip</button>
+    </div>
+    <p id="status" class="status" role="status" aria-live="polite"></p>
+  </footer>
+
+  <dialog id="preview-dialog">
+    <header>
+      <strong>Preview</strong>
+      <select id="preview-file" aria-label="File"></select>
+      <button type="button" id="preview-close" aria-label="Close">✕</button>
+    </header>
+    <pre id="preview-body"></pre>
+  </dialog>
+</body>
+</html>

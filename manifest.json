@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "Skill Maker",
+  "version": "0.1.0",
+  "description": "Capture web documentation and package it as modular Markdown skills for LLMs.",
+  "minimum_chrome_version": "116",
+  "action": {
+    "default_title": "Open Skill Maker"
+  },
+  "side_panel": {
+    "default_path": "sidepanel/sidepanel.html"
+  },
+  "background": {
+    "service_worker": "background/service-worker.js",
+    "type": "module"
+  },
+  "permissions": ["sidePanel", "storage", "unlimitedStorage", "scripting", "downloads"],
+  "host_permissions": ["<all_urls>"],
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+S" },
+      "description": "Open Skill Maker"
+    }
+  }
+}
