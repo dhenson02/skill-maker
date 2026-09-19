@@ -16,6 +16,10 @@ npm test                    # unit tests (node:test): store, content script unde
 npm run test:e2e            # loads the unpacked extension in headless Chrome for Testing
 npm run test:all
 
+npm run package             # dist/skill-maker-<version>.zip + dist/unpacked/ (allowlisted runtime files, validated)
+npm run test:package        # package, then e2e against dist/unpacked (EXTENSION_DIR)
+npm run assets              # icons/*.png from icons/icon.svg + store/ screenshots and promo tile
+
 node --test tests/unit/store.test.mjs                        # a single file
 node --test --test-name-pattern='dedup' 'tests/unit/*.test.mjs'   # tests matching a name
 ```
@@ -55,3 +59,10 @@ There are three execution contexts. They communicate only through `chrome.runtim
 **Globals:** `shared/messages.js` defines `globalThis.SM`, which holds the message types, the port prefix, the storage keys and `ROOT_ID`. `exporter.js` depends on the page globals `SM` and `JSZip`, which `sidepanel.html` loads as classic scripts. The unit tests stub both before they dynamically `import()` the module. `store.test.mjs` installs an in-memory `chrome.storage` from `tests/helpers/fake-chrome.mjs` before importing the store.
 
 **Export** (`sidepanel/exporter.js`) builds everything as strings, except image fetching: extension pages with host permissions bypass CORS. It shifts heading levels outside code fences. Images are downloaded into `assets/` and their links rewritten. Images that fail to download keep their remote URLs and are reported to the user.
+
+## Packaging and the Chrome Web Store
+
+- `scripts/package.mjs` puts only `manifest.json`, `background/`, `content/`, `shared/`, `sidepanel/`, `vendor/` and `icons/*.png` into the zip. It fails the build if a file referenced by the manifest, the worker's `CONTENT_SCRIPTS`/`CONTENT_CSS` lists or `sidepanel.html` is missing, or if any code imports a remote URL. A new runtime directory must be added to `INCLUDE_DIRS`.
+- The store answers are in `store/listing.md`. Keep the permission justifications in step with the manifest: adding a permission needs a justification there, and an unused permission can get the submission rejected.
+- `PRIVACY.md` must stay accurate. Update it if the extension ever sends data anywhere other than image fetches during export.
+- The store images come from `scripts/store-assets.mjs`. They use a fictional docs site (`scripts/store-demo.mjs`) served as `docs.nimbus.example` through a Chrome host-resolver rule.

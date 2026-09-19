@@ -9,7 +9,10 @@ import http from 'node:http';
 import { after, before, test } from 'node:test';
 import puppeteer from 'puppeteer';
 
-const EXTENSION_DIR = new URL('../../', import.meta.url).pathname;
+// EXTENSION_DIR=dist/unpacked tests the packaged build (npm run test:package).
+const EXTENSION_DIR = process.env.EXTENSION_DIR
+  ? new URL(process.env.EXTENSION_DIR.replace(/\/?$/, '/'), `file://${process.cwd()}/`).pathname
+  : new URL('../../', import.meta.url).pathname;
 const PNG = Buffer.from(
   'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=',
   'base64',

@@ -6,7 +6,10 @@
   "scripts": {
     "test": "node --test 'tests/unit/*.test.mjs'",
     "test:e2e": "node --test 'tests/e2e/*.test.mjs'",
-    "test:all": "npm test && npm run test:e2e"
+    "test:all": "npm test && npm run test:e2e",
+    "package": "node scripts/package.mjs",
+    "test:package": "npm run package && EXTENSION_DIR=dist/unpacked npm run test:e2e",
+    "assets": "node scripts/store-assets.mjs"
   },
   "devDependencies": {
     "jsdom": "^30.1.0",

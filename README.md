@@ -45,3 +45,14 @@ Set `CHROME_PATH` to use an existing Chrome for Testing / Chromium binary. Brand
 Google Chrome ignores `--load-extension`, so it can't run the e2e suite.
 The e2e suite opens the side panel page as a tab, because headless Chrome can't
 click the toolbar button.
+
+## Publishing
+
+```sh
+npm run package        # dist/skill-maker-<version>.zip (runtime files only) + dist/unpacked/
+npm run test:package   # package, then run the e2e suite against dist/unpacked
+npm run assets         # re-render icons/*.png from icons/icon.svg and the store images in store/
+```
+
+Answers for each tab of the Chrome Web Store dashboard are in `store/listing.md`.
+The privacy policy is `PRIVACY.md`.
